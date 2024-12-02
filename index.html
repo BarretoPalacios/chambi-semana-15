@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+  </head>
+  <body>
+    <!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portafolio de 15 Proyectos Semanales</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-gradient-to-r from-blue-100 to-purple-100 font-sans antialiased">
+
+    <div x-data="portfolio()" class="container mx-auto p-4">
+        <h1
+            class="text-5xl font-extrabold text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 mb-12">
+            Portafolio de 15 Proyectos Semanales</h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+            <template x-for="project in projects" :key="project.id">
+                <div
+                    class="card bg-white shadow-xl rounded-xl overflow-hidden transform transition duration-300 hover:scale-105">
+                    <img class="w-full h-48 object-cover" :src="project.image" :alt="project.title">
+                    <div class="p-6">
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2" x-text="project.title"></h2>
+                        <p class="text-gray-600 mb-4" x-text="project.description"></p>
+                        <button @click="openModal(project)" class="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold py-2 px-4 rounded-full transition duration-300 hover:from-blue-600 hover:to-purple-600 transform hover:-translate-y-1">
+              Ver detalles
+            </button>
+                    </div>
+                </div>
+            </template>
+        </div>
+
+        <div x-show="selectedProject" x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 transform scale-90"
+            x-transition:enter-end="opacity-100 transform scale-100"
+            x-transition:leave="transition ease-in duration-300"
+            x-transition:leave-start="opacity-100 transform scale-100"
+            x-transition:leave-end="opacity-0 transform scale-90"
+            class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+            <div class="bg-white p-8 rounded-2xl shadow-2xl w-11/12 max-w-2xl" @click.away="selectedProject = null">
+                <h2 class="text-3xl font-bold mb-4" x-text="selectedProject?.title"></h2>
+                <img :src="selectedProject?.image" :alt="selectedProject?.title" class="w-full h-64 object-cover rounded-lg mb-4">
+                <p class="text-gray-600 mb-6" x-text="selectedProject?.fullDescription"></p>
+                <div class="flex justify-between items-center">
+                    <a :href="selectedProject?.demoLink" target="_blank" rel="noopener noreferrer"
+                        class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full transition duration-300 hover:bg-blue-600 transform hover:-translate-y-1">
+                        <i class="fas fa-external-link-alt mr-2" aria-hidden="true"></i>Demo en vivo
+                    </a>
+                    githubLink: "https://github.com/BarretoPalacios"
+                    <!-- <a :href="selectedProjec
+          t?.githubLink" target="_blank" rel="noopener noreferrer" class="bg-gray-800 text-white font-bold py-2 px-4 rounded-full transition duration-300 hover:bg-gray-900 transform hover:-translate-y-1"> -->
+                    <i class="fab fa-github mr-2" aria-hidden="true"></i>Código fuente
+                    </a>
+                </div>
+                <button @click="selectedProject = null" class="mt-6 w-full bg-red-500 text-white font-bold py-2 px-4 rounded-full transition duration-300 hover:bg-red-600 transform hover:-translate-y-1">
+          Cerrar
+        </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function portfolio() {
+      return {
+        projects: [
+  {
+    id: 1,
+    title: "Semana 1",
+    description: "App que muestra el pronóstico del tiempo en tiempo real.",
+    fullDescription: "Una aplicación web que utiliza la API de OpenWeatherMap para mostrar el pronóstico del tiempo en tiempo real para cualquier ciudad del mundo. Desarrollada con HTML, CSS y JavaScript.",
+    image: "https://images.unsplash.com/photo-1592210454359-9043f067919b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    demoLink: "https://ejemplo.com/demo-clima",
+    githubLink: "https://github.com/BarretoPalacios"
+  },
+  {
+    id: 2,
+    title: "Semana 2",
+    description: "Aplicación para gestionar tareas diarias.",
+    fullDescription: "Una aplicación de lista de tareas con funcionalidades de agregar, eliminar y marcar tareas como completadas. Desarrollada con React y utiliza localStorage para persistencia de datos.",
+    image: "https://images.unsplash.com/photo-1540350394557-8d14678e7f91?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80",
+    demoLink: "https://ejemplo.com/demo-tareas",
+    githubLink: "https://github.com/BarretoPalacios"
+  },
+  {
+    id: 3,
+    title: "Semana 3",
+    description: "Calculadora web con operaciones básicas y avanzadas.",
+    fullDescription: "Una calculadora web que realiza operaciones aritméticas básicas y algunas funciones avanzadas como raíz cuadrada y potencias. Desarrollada con HTML, CSS y JavaScript.",
+    image: "https://images.unsplash.com/photo-1587145820266-a5951ee6f620?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1480&q=80",
+    demoLink: "https://ejemplo.com/demo-calculadora",
+    githubLink: "https://github.com/BarretoPalacios"
+  },
+  {
+    id: 4,
+    title: "Semana 4",
+    description: "Juego clásico de memoria con tarjetas.",
+    fullDescription: "Un juego de memoria donde los jugadores deben encontrar pares de cartas iguales. Desarrollado con HTML, CSS y JavaScript, con animaciones suaves y efectos de sonido.",
+    image: "https://images.unsplash.com/photo-1606167668584-78701c57f13d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    demoLink: "https://ejemplo.com/demo-memoria",
+    githubLink: "https://github.com/BarretoPalacios"
+  },
+  {
+    id: 5,
+    title: "Semana 5",
+    description: "Herramienta para convertir entre diferentes unidades.",
+    fullDescription: "Una aplicación web que permite convertir entre diferentes unidades de medida como longitud, peso, volumen y temperatura. Desarrollada con Vue.js y utiliza la API de conversión de unidades.",
+    image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    demoLink: "https://ejemplo.com/demo-conversor",
+    githubLink: "https://github.com/BarretoPalacios"
+  },
+  {
+    id: 6,
+    title: "Semana 6",
+    description: "Galería de imágenes con diseño responsivo.",
+    fullDescription: "Una galería de fotos con diseño responsivo que muestra imágenes en un grid y permite ver las imágenes en tamaño completo. Desarrollada con HTML, CSS Grid y JavaScript.",
+    image: "https://images.unsplash.com/photo-1552168324-d612d77725e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1436&q=80",
+    demoLink: "https://ejemplo.com/demo-galeria",
+    githubLink: "https://github.com/BarretoPalacios"
+  },
+  {
+    id: 7,
+    title: "Semana 7",
+    description: "Aplicación para gestionar tiempo con la técnica Pomodoro.",
+    fullDescription: "Un temporizador Pomodoro que ayuda a gestionar el tiempo de trabajo y descanso. Incluye notificaciones de escritorio y sonidos. Desarrollado con React y la API de notificaciones web.",
+    image: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    demoLink: "https://ejemplo.com/demo-pomodoro",
+    githubLink: "https://github.com/BarretoPalacios"
+  },
+  {
+    id: 8,
+    title: "Semana 8",
+    description: "Aplicación para buscar y guardar recetas de cocina.",
+    fullDescription: "Una aplicación web que permite buscar recetas de cocina utilizando la API de Edamam. Los usuarios pueden guardar sus recetas favoritas y ver los ingredientes y las instrucciones. Desarrollada con React y Redux.",
+    image: "https://images.unsplash.com/photo-1556911220-e15b29be8c8f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    demoLink: "https://ejemplo.com/demo-recetas",
+    githubLink: "https://github.com/BarretoPalacios"
+  },
+  {
+    id: 9,
+    title: "Semana 9",
+    description: "Editor de texto con vista previa en tiempo real.",
+    fullDescription: "Un editor de texto Markdown con vista previa en tiempo real. Permite a los usuarios escribir en Markdown y ver el resultado HTML instantáneamente. Desarrollado con Vue.js y la librería marked.js.",
+    image: "https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    demoLink: "https://ejemplo.com/demo-markdown",
+    githubLink: "https://github.com/BarretoPalacios"
+  },
+  {
+    id: 10,
+    title: "Semana 10",
+    description: "Juego de preguntas y respuestas con múltiples categorías.",
+    fullDescription: "Un juego de quiz con preguntas de múltiples categorías. Los jugadores pueden seleccionar la dificultad y la categoría. Desarrollado con React y utiliza la API de Open Trivia Database.",
+    image: "https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    demoLink: "https://ejemplo.com/demo-quiz",
+    githubLink: "https://github.com/BarretoPalacios"
+  },
+  {
+    id: 11,
+    title: "Semana 11",
+    description: "Herramienta para crear contraseñas seguras.",
+    fullDescription: "Una aplicación web que genera contraseñas seguras basadas en criterios especificados por el usuario, como longitud y tipos de caracteres. Desarrollada con HTML, CSS y JavaScript.",
+    image: "https://images.unsplash.com/photo-1545158308-5f30d7f5b093?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    demoLink: "https://ejemplo.com/demo-generador-contrasenas",
+    githubLink: "https://github.com/BarretoPalacios"
+  },
+   {
+    id: 12,
+    title: "Semana 12",
+    description: "Aplicación para crear y gestionar presupuestos.",
+    fullDescription: "Una aplicación web que permite a los usuarios crear y gestionar presupuestos personales. Los usuarios pueden agregar categorías de gastos y ver gráficos de sus finanzas. Desarrollada con Angular y Chart.js.",
+    image: "https://images.unsplash.com/photo-1588649283310-0918cd9e3965?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    demoLink: "https://ejemplo.com/demo-presupuesto",
+    githubLink: "https://github.com/BarretoPalacios"
+  },
+  {
+    id: 13,
+    title: "Semana 13",
+    description: "Aplicación para hacer seguimiento de hábitos.",
+    fullDescription: "Una app que permite a los usuarios llevar un registro de sus hábitos diarios, como ejercicio, alimentación o lectura. Los usuarios pueden establecer metas y recibir notificaciones. Desarrollada con Vue.js y Firebase.",
+    image: "https://images.unsplash.com/photo-1603762032406-b6fd42e365b4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    demoLink: "https://ejemplo.com/demo-habitos",
+    githubLink: "https://github.com/BarretoPalacios"
+  },
+  {
+    id: 14,
+    title: "Semana 14",
+    description: "Aplicación de meditación y relajación.",
+    fullDescription: "Una aplicación que ofrece sesiones guiadas de meditación y técnicas de relajación para reducir el estrés y mejorar el bienestar. Desarrollada con React Native para dispositivos móviles.",
+    image: "https://images.unsplash.com/photo-1583192489464-c44f11b83d9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    demoLink: "https://ejemplo.com/demo-meditacion",
+    githubLink: "https://github.com/BarretoPalacios"
+  },
+  {
+    id: 15,
+    title: "Semana 15",
+    description: "Aplicación de reconocimiento de imágenes.",
+    fullDescription: "Una aplicación web que permite a los usuarios cargar imágenes para que el sistema las clasifique utilizando aprendizaje automático. Implementada con TensorFlow.js y una red neuronal preentrenada.",
+    image: "https://images.unsplash.com/photo-1573497019755-9e4404f5f2c0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    demoLink: "https://ejemplo.com/demo-reconocimiento-imagenes",
+    githubLink: "https://github.com/BarretoPalacios"
+  }
+
+]
+,
+        selectedProject: null,
+        openModal(project) {
+          this.selectedProject = project;
+        }
+      }
+    }
+    </script>
+
+</body>
+
+</html>
+    <script type="module" src="script.js"></script>
+  </body>
+</html>
